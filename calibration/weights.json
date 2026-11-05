@@ -1,0 +1,62 @@
+{
+  "method": "original_provisional",
+  "status": "benchmark_evaluated_design_baseline",
+  "composition": {
+    "capability": 0.5,
+    "semantic_density": 0.2,
+    "context_support": 0.2,
+    "limit": 0.1
+  },
+  "risk": {
+    "isolation": 0.15,
+    "compositional": 0.3,
+    "permission": 0.15,
+    "external": 0.2,
+    "manipulation": 0.1,
+    "contradiction": 0.1
+  },
+  "reason": "Retained the predeclared positive policy-weight baseline after grouped MPBench evaluation: no evaluated equal-weight, positive Brier-fit, or positive pairwise-ranking alternative improved both held-out ROC-AUC and squared error. NIST and OWASP justify the factors and their ordering, but do not prescribe the exact percentages.",
+  "selection_basis": {
+    "formula_constraint": "The four-factor compositional sum and six-factor final-risk sum remain unchanged; all coefficients are nonnegative and each vector sums to one.",
+    "benchmark": "MPBench, associated with From Untrusted Input to Trusted Memory (Dash et al., AIWILD at ICML 2026).",
+    "split_policy": "Grouped train/validation/test split prevents canonical candidates, contexts, and source IDs from crossing splits.",
+    "replacement_rule": "Replace the baseline only if an eligible positive candidate is no worse on both held-out ROC-AUC and held-out squared error, with at least one strict improvement.",
+    "result": "No evaluated candidate satisfied the replacement rule, so changing coefficients would not be supported by the declared evidence criterion."
+  },
+  "factor_evidence": {
+    "capability": "Primary harmful-action signal; supported conceptually by OWASP prompt-injection impact categories and NIST access/information-flow controls.",
+    "semantic_density": "Corroborating retrieval-relevance signal; kept secondary because semantic similarity does not establish malicious intent.",
+    "context_support": "Corroborating multi-memory signal; supported conceptually by NIST risk aggregation and OWASP indirect/RAG poisoning guidance.",
+    "limit": "Small nonlinear severe-capability indicator that reduces dilution; an organization-defined risk-policy control.",
+    "isolation": "Direct candidate-only control concern; separately protected by a non-compensatory isolation guardrail.",
+    "compositional": "Largest final-risk weight because cross-memory composition is the system's primary threat model.",
+    "permission": "Authorization and least-privilege concern mapped to NIST AC-3 and AC-6.",
+    "external": "Unauthorized information-flow and exfiltration concern mapped to NIST AC-4 and OWASP guidance.",
+    "manipulation": "Unsafe automation/control-bypass concern; lower outer weight limits overlap with external, permission, and compositional signals.",
+    "contradiction": "Policy-conflict concern; lower outer weight limits overlap with isolation and permission signals."
+  },
+  "authoritative_references": [
+    "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+    "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+    "https://www.nist.gov/publications/guide-conducting-risk-assessments",
+    "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+    "https://cheatsheetseries.owasp.org/cheatsheets/RAG_Security_Cheat_Sheet.html",
+    "https://arxiv.org/abs/2606.04329"
+  ],
+  "source_url": "https://github.com/Digital-Trust-Lab/mp-bench",
+  "heldout_evaluation": {
+    "n": 1083,
+    "poisoned": 650,
+    "brier": 0.41536774315789476,
+    "roc_auc": 0.7074222774915616,
+    "average_precision": 0.8173727747185443,
+    "tp": 73,
+    "fp": 0,
+    "fn": 577,
+    "tn": 433,
+    "precision_at_existing_threshold": 1.0,
+    "recall_at_existing_threshold": 0.1123076923076923
+  },
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+}
